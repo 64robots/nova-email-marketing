@@ -46,6 +46,10 @@ export default {
             this.lists = result.data
             this.loading = false
         });
+        Nova.request().get('/nova-vendor/nova-email-marketing-tool/lists/3330312577').then(({ data: result }) => {
+            console.log(result)
+        });
+        
     },
 }
 </script>

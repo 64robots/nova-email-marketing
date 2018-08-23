@@ -28,8 +28,6 @@ class TestEmailMarketingCommand extends Command
      */
     public function handle()
     {
-        $marketingToolManager = new MarketingToolManager;
-        dd($marketingToolManager->getList('3330312577'));
     }
 
 }

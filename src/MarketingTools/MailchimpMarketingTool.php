@@ -2,9 +2,9 @@
 
 namespace R64\NovaEmailMarketing\MarketingTools;
 
-use League\Fractal;
 use R64\NovaEmailMarketing\Contracts\MarketingTool as MarketingToolContract;
 use R64\NovaEmailMarketing\MarketingTools\BaseMarketingTool;
+use R64\NovaEmailMarketing\Resources\MailchimpListResource;
 use R64\NovaEmailMarketing\Transformers\MailchimpListTransformer;
 
 class MailchimpMarketingTool extends BaseMarketingTool implements MarketingToolContract
@@ -17,8 +17,6 @@ class MailchimpMarketingTool extends BaseMarketingTool implements MarketingToolC
      * 
      */
     function __construct() {
-        parent::__construct();
-
         $apiKey = $this->credentials();
         if (!$apiKey) {
             throw new Exception('MailChimp credentials not found in config');
@@ -35,8 +33,7 @@ class MailchimpMarketingTool extends BaseMarketingTool implements MarketingToolC
         if (!$lists) {
             return false;
         }
-
-        return $this->fractal->createData(new Fractal\Resource\Collection($lists['lists'], new MailchimpListTransformer))->toArray();
+        return MailchimpListResource::collection(collect($lists['lists']));
     }
 
     /**
@@ -50,7 +47,7 @@ class MailchimpMarketingTool extends BaseMarketingTool implements MarketingToolC
             return false;
         }
 
-        return $this->fractal->createData(new Fractal\Resource\Item($list, new MailchimpListTransformer))->toArray();
+        return new MailchimpListResource($list);
     }
 
     public function createList() {

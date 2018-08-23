@@ -1,9 +1,7 @@
 {
     "name": "r64/nova-email-marketing-tool",
-    "description": "A Laravel Nova tool.",
+    "description": "A Laravel Nova tool to manage your email marketing lists",
     "keywords": [
-        "laravel",
-        "nova"
     ],
     "license": "MIT",
     "require": {
