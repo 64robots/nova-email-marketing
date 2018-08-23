@@ -1,0 +1,30 @@
+{
+    "name": "r64/nova-email-marketing-tool",
+    "description": "A Laravel Nova tool.",
+    "keywords": [
+        "laravel",
+        "nova"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.0",
+        "drewm/mailchimp-api": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "R64\\NovaEmailMarketing\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "R64\\NovaEmailMarketing\\ToolServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
