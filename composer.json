@@ -4,6 +4,12 @@
     "keywords": [
     ],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../packages/laravel-email-marketing"
+        }
+    ],
     "require": {
         "php": ">=7.1.0",
         "drewm/mailchimp-api": "^2.5",

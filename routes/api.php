@@ -16,6 +16,7 @@ use R64\LaravelEmailMarketing\MarketingTools\MarketingToolManager;
 |
 */
 
+
 Route::get('/lists', function (Request $request) {
     $marketingToolManager = new MarketingToolManager;
     return $marketingToolManager->getLists();
@@ -24,4 +25,9 @@ Route::get('/lists', function (Request $request) {
 Route::get('/lists/{listId}', function (Request $request, $listId) {
     $marketingToolManager = new MarketingToolManager;
     return $marketingToolManager->getList($listId);
+});
+
+Route::get('/list-members/{listId}', function (Request $request, $listId) {
+    $marketingToolManager = new MarketingToolManager;
+    return $marketingToolManager->getListMembers($listId);
 });

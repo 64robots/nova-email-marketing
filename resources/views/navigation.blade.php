@@ -4,3 +4,30 @@
         Email Marketing
     </span>
 </router-link>
+<!--
+<ul class="list-reset mb-8">
+    <li class="leading-wide mb-4 text-sm">
+        <router-link :to="{
+            name: 'nova-email-marketing-tool-lists',
+        }" class="text-white ml-8 no-underline dim">
+            Lists
+        </router-link>
+    </li>
+
+    <li class="leading-wide mb-4 text-sm">
+        <router-link :to="{
+            name: 'nova-email-marketing-tool-tags',
+        }" class="text-white ml-8 no-underline dim">
+            Tags
+        </router-link>
+    </li>
+    
+    <li class="leading-wide mb-4 text-sm">
+        <router-link :to="{
+            name: 'nova-email-marketing-tool-subscribers',
+        }" class="text-white ml-8 no-underline dim">
+            Subscribers
+        </router-link>
+    </li>
+</ul>
+    -->

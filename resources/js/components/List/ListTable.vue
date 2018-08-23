@@ -1,7 +1,6 @@
 <template>
     <table
-        v-if="lists.length > 0"
-        class="table w-full"
+        class="table w-full bg-white"
         cellpadding="0"
         cellspacing="0"
     >
@@ -31,13 +30,15 @@
         </thead>
         <tbody>
             <tr
-                v-for="list in sortedLists"
-                :key="list.id"
+                v-for="member in sortedMembers"
+                :key="member.id"
+                @click="showMember(member)"
             >
                 <td
                     v-for="field in fields"
-                    :key="field.attribute">
-                    {{ list[field.attribute] }}
+                    :key="field.attribute"
+                    @click="showMember(member)">
+                    {{ member[field.attribute] }}
                 </td>
             </tr>
         </tbody>
@@ -47,7 +48,7 @@
 <script>
 export default {
     props: {
-        lists: {
+        members: {
             type: Array,
             required: true
         },
@@ -61,21 +62,21 @@ export default {
     data: () => ({
         fields: [
             {
-                indexName: 'ID',
-                textAlign: 'left',
-                attribute: 'id',
-                sortable: true
-            },
-            {
                 indexName: 'Name',
                 textAlign: 'left',
                 attribute: 'name',
                 sortable: true
             },
             {
-                indexName: '# of Subscribers',
+                indexName: 'Email address',
                 textAlign: 'left',
-                attribute: 'subscribers',
+                attribute: 'email',
+                sortable: true
+            },
+            {
+                indexName: 'Subscribe Date',
+                textAlign: 'left',
+                attribute: 'subscribed_at',
                 sortable: true
             }
         ],
@@ -92,30 +93,41 @@ export default {
                 this.sortDirection = false
             }     
         },
+
+        showMember (member) {
+            /*
+            this.$router.push({
+                name: 'nova-email-marketing-tool-list',
+                params: {
+                    listId: list.id
+                }
+            })
+            */
+        }
     },
 
     computed: {
-        sortedLists () {
-            return this.lists.filter(list => {
+        sortedMembers () {
+            return this.members.filter(member => {
                     return this.search === '' ||
-                        list.name.includes(this.search) ||
+                        member.name.includes(this.search) ||
                         String(list.id).includes(this.search) ||
-                        list.subscribers === this.search
+                        member.email.includes(this.search)
                 })
                 .sort((a, b) => {
-                const firstValue = a[this.sortField]
-                const secondValue = b[this.sortField]
-                
-                let comparison = 0;
-                if (firstValue > secondValue) {
-                    comparison = 1;
-                } else if (firstValue < secondValue) {
-                    comparison = -1;
-                }
-                return (
-                    this.sortDirection ? (comparison * -1) : comparison
-                );
-            })
+                    const firstValue = a[this.sortField]
+                    const secondValue = b[this.sortField]
+                    
+                    let comparison = 0;
+                    if (firstValue > secondValue) {
+                        comparison = 1;
+                    } else if (firstValue < secondValue) {
+                        comparison = -1;
+                    }
+                    return (
+                        this.sortDirection ? (comparison * -1) : comparison
+                    );
+                })
         }
     }
 }
