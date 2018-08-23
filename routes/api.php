@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use R64\NovaEmailMarketing\MarketingTools\MarketingToolManager;
+use R64\LaravelEmailMarketing\MarketingTools\MarketingToolManager;
 
 /*
 |--------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <heading class="mb-6">Email Marketing</heading>
+        <heading class="mb-6">Email Marketing<span v-if="tool">{{ tool }}</span></heading>
         
         <div class="flex justify-between">
             <div class="relative h-9 flex items-center mb-6">
@@ -16,11 +16,13 @@
             </div>               
         </div>
 
-        <loading-card :loading="loading" :class="{ 'overflow-hidden border border-50': !shouldShowToolbar }">
+        <LoadingCard 
+            :loading="loading"
+            class="overflow-hidden border border-50">
             <ListTable
                 :lists="lists"
                 :search="search" />
-        </loading-card>
+        </LoadingCard>
     </div>
 </template>
 
@@ -37,19 +39,22 @@ export default {
         return {
             loading: true,
             lists: [],
-            search: ''
+            search: '',
+            tool: null
         }
     },
     
-    mounted() {
-        Nova.request().get('/nova-vendor/nova-email-marketing-tool/lists').then(({ data: result }) => {
-            this.lists = result.data
-            this.loading = false
-        });
-        Nova.request().get('/nova-vendor/nova-email-marketing-tool/lists/3330312577').then(({ data: result }) => {
-            console.log(result)
-        });
-        
+    created () {
+        Nova.request().get('/nova-vendor/nova-email-marketing-tool/tool')
+            .then(({ data: result }) => {
+                this.tool = result.data
+            })
+
+        Nova.request().get('/nova-vendor/nova-email-marketing-tool/lists')
+            .then(({ data: result }) => {
+                this.lists = result.data
+                this.loading = false
+            })
     },
 }
 </script>

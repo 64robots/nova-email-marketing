@@ -1,8 +1,8 @@
 <?php
 
-namespace R64\NovaEmailMarketing\Http\Middleware;
+namespace R64\NovaEmailMarketingTool\Http\Middleware;
 
-use R64\NovaEmailMarketing\NovaEmailMarketingTool;
+use R64\NovaEmailMarketingTool\NovaEmailMarketingTool;
 
 class Authorize
 {

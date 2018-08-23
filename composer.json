@@ -6,17 +6,18 @@
     "license": "MIT",
     "require": {
         "php": ">=7.1.0",
-        "drewm/mailchimp-api": "^2.5"
+        "drewm/mailchimp-api": "^2.5",
+        "r64/laravel-email-marketing": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "R64\\NovaEmailMarketing\\": "src/"
+            "R64\\NovaEmailMarketingTool\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "R64\\NovaEmailMarketing\\ToolServiceProvider"
+                "R64\\NovaEmailMarketingTool\\NovaEmailMarketingServiceProvider"
             ]
         }
     },

@@ -1,14 +1,14 @@
 <?php
 
-namespace R64\NovaEmailMarketing;
+namespace R64\NovaEmailMarketingTool;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use R64\NovaEmailMarketing\Http\Middleware\Authorize;
+use R64\NovaEmailMarketingTool\Http\Middleware\Authorize;
 
-class ToolServiceProvider extends ServiceProvider
+class NovaEmailMarketingServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -29,7 +29,7 @@ class ToolServiceProvider extends ServiceProvider
 
 
         if (!$this->app->configurationIsCached()) {
-            $this->mergeConfigFrom(__DIR__.'/../config/email-marketing.php', 'email-marketing');
+            $this->mergeConfigFrom(__DIR__.'/../config/nova-email-marketing-tool.php', 'nova-email-marketing-tool');
         }
 
         Nova::serving(function (ServingNova $event) {
@@ -52,18 +52,6 @@ class ToolServiceProvider extends ServiceProvider
                 ->prefix('nova-vendor/nova-email-marketing-tool')
                 ->group(__DIR__.'/../routes/api.php');
     }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->commands([
-            Console\TestEmailMarketingCommand::class
-        ]);
-    }
     
     /**
      * Register the package's publishable resources.
@@ -73,7 +61,7 @@ class ToolServiceProvider extends ServiceProvider
     protected function registerPublishing()
     {
         $this->publishes([
-            __DIR__.'/../config/email-marketing.php' => config_path('email-marketing.php'),
-        ], 'email-marketing-tool');
+            __DIR__.'/../config/nova-email-marketing-tool.php' => config_path('nova-email-marketing-tool.php'),
+        ], 'nova-email-marketing-tool');
     }
 }

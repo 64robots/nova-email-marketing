@@ -1,6 +1,6 @@
 <?php
 
-namespace R64\NovaEmailMarketing;
+namespace R64\NovaEmailMarketingTool;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
