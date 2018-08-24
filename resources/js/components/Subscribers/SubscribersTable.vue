@@ -1,52 +1,17 @@
 <template>
-    <table
-        class="table w-full bg-white"
-        cellpadding="0"
-        cellspacing="0"
-    >
-        <thead>
-            <tr>
-
-                <!-- Field Names -->
-                <th
-                    v-for="field in fields"
-                    :key="field.attribute"
-                    :class="`text-${field.textAlign}`"
-                >
-                    <sortable-icon
-                        @sort="requestOrderByChange(field)"
-                        :resource-name="lists"
-                        :uri-key="field.attribute"
-                        v-if="field.sortable"
-                    >
-                        {{ field.indexName }}
-                    </sortable-icon>
-
-                    <span v-else>
-                        {{ field.indexName }}
-                    </span>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr
-                v-for="list in sortedLists"
-                :key="list.id"
-            >
-                <td
-                    v-for="field in fields"
-                    :key="field.attribute">
-                    {{ list[field.attribute] }}
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <SortTable
+        :fields="fields"
+        :filter="filter"
+        :tableData="subscribers"
+        viewRoute="nova-email-marketing-tool-subscriber" />
 </template>
 
 <script>
+import SortTable from '../Shared/SortTable'
+
 export default {
     props: {
-        lists: {
+        subscribers: {
             type: Array,
             required: true
         },
@@ -57,14 +22,12 @@ export default {
         }
     },
 
+    components: {
+        SortTable
+    },
+
     data: () => ({
         fields: [
-            {
-                indexName: 'ID',
-                textAlign: 'left',
-                attribute: 'id',
-                sortable: true
-            },
             {
                 indexName: 'Name',
                 textAlign: 'left',
@@ -72,9 +35,15 @@ export default {
                 sortable: true
             },
             {
-                indexName: '# of Subscribers',
+                indexName: 'Email address',
                 textAlign: 'left',
-                attribute: 'subscribers',
+                attribute: 'email',
+                sortable: true
+            },
+            {
+                indexName: 'Subscribe Date',
+                textAlign: 'left',
+                attribute: 'subscribed_at',
                 sortable: true
             }
         ],
@@ -83,38 +52,11 @@ export default {
     }),
 
     methods: {
-        requestOrderByChange(field) {
-            if (field.attribute === this.sortField) {
-                this.sortDirection = !this.sortDirection
-            } else {
-                this.sortField = field.attribute
-                this.sortDirection = false
-            }     
-        },
-    },
-
-    computed: {
-        sortedLists () {
-            return this.lists.filter(list => {
-                    return this.search === '' ||
-                        list.name.includes(this.search) ||
-                        String(list.id).includes(this.search) ||
-                        list.subscribers === this.search
-                })
-                .sort((a, b) => {
-                const firstValue = a[this.sortField]
-                const secondValue = b[this.sortField]
-                
-                let comparison = 0;
-                if (firstValue > secondValue) {
-                    comparison = 1;
-                } else if (firstValue < secondValue) {
-                    comparison = -1;
-                }
-                return (
-                    this.sortDirection ? (comparison * -1) : comparison
-                );
-            })
+        filter (subscriber) {
+            return this.search === '' ||
+                subscriber.name.includes(this.search) ||
+                String(list.id).includes(this.search) ||
+                subscriber.email.includes(this.search)
         }
     }
 }

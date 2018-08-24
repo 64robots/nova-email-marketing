@@ -1,24 +1,13 @@
 <template>
     <div>
-        <div class="flex justify-between">
-            <div class="relative h-9 flex items-center mb-6">
-                 <icon type="search" class="absolute ml-3 text-70" />
-
-                <input
-                    data-testid="search-input"
-                    dusk="search"
-                    class="appearance-none form-control form-input w-search pl-search"
-                    placeholder="Search"
-                    type="search"
-                    v-model="search">
-            </div>               
-        </div>
+        <SearchInput
+            v-model="search" />
 
         <LoadingCard 
             :loading="loading"
             class="overflow-hidden border border-50">
             <SubscribersTable
-                :lists="lists"
+                :subscribers="subscribers"
                 :search="search" />
         </LoadingCard>
     </div>
@@ -26,6 +15,7 @@
 
 <script>
 import SubscribersTable from './SubscribersTable'
+import PageMixin from '../../mixins/page'
 
 export default {
 
@@ -33,21 +23,29 @@ export default {
         SubscribersTable
     },
 
+    mixins: [ PageMixin ],
+
     data () {
         return {
-            loading: true,
-            lists: [],
-            search: '',
-            tool: null
+            subscribers: []
         }
     },
     
     created () {
-        this.$emit('updateTitle', 'Subscribers')
+        this.$emit('updateTitle', this.tool.pages.subscribers)
 
-        Nova.request().get('/nova-vendor/nova-email-marketing-tool/lists')
+        Nova.request().get('/nova-vendor/nova-email-marketing-tool/subscribers')
             .then(({ data: result }) => {
-                this.lists = result.data
+                if (!result) {
+                    this.$router.push({
+                        name: 'nova-email-marketing-tool'
+                    })
+                }
+                let subscribers = result.data
+                subscribers.forEach(member => {
+                    member.subscribed_at = moment(member.subscribed_at).format('MM/DD/YYYY')
+                })
+                this.subscribers = subscribers
                 this.loading = false
             })
     },

@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use R64\LaravelEmailMarketing\MarketingTools\MarketingToolManager;
-
+use R64\NovaEmailMarketingTool\NovaToolData\NovaToolData;
 /*
 |--------------------------------------------------------------------------
 | Tool API Routes
@@ -16,6 +16,9 @@ use R64\LaravelEmailMarketing\MarketingTools\MarketingToolManager;
 |
 */
 
+Route::get('/tool', function (Request $request) {
+    return NovaToolData::toolData();
+});
 
 Route::get('/lists', function (Request $request) {
     $marketingToolManager = new MarketingToolManager;
@@ -27,7 +30,17 @@ Route::get('/lists/{listId}', function (Request $request, $listId) {
     return $marketingToolManager->getList($listId);
 });
 
-Route::get('/list-members/{listId}', function (Request $request, $listId) {
+Route::get('/list-subscribers/{listId}', function (Request $request, $listId) {
     $marketingToolManager = new MarketingToolManager;
-    return $marketingToolManager->getListMembers($listId);
+    return $marketingToolManager->getListSubscribers($listId);
 });
+
+Route::get('/subscribers', function (Request $request) {
+    $marketingToolManager = new MarketingToolManager;
+    return $marketingToolManager->getSubscribers();
+});
+
+Route::get('/subscribers/{subscriberId}', function (Request $request, $subscriberId) {
+});
+
+

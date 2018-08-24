@@ -4,6 +4,7 @@ namespace R64\NovaEmailMarketingTool;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Tool;
+use R64\NovaEmailMarketingTool\NovaToolData\NovaToolData;
 
 class NovaEmailMarketingTool extends Tool
 {
@@ -25,6 +26,8 @@ class NovaEmailMarketingTool extends Tool
      */
     public function renderNavigation()
     {
-        return view('nova-email-marketing-tool::navigation');
+        return view('nova-email-marketing-tool::navigation', [
+            'tool' => NovaToolData::toolData()
+        ]);
     }
 }

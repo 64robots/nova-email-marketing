@@ -1,72 +1,60 @@
 <template>
     <div>
-        <div class="flex justify-between">
-            <div class="relative h-9 flex items-center mb-6">
-                 <icon type="search" class="absolute ml-3 text-70" />
-
-                <input
-                    data-testid="search-input"
-                    dusk="search"
-                    class="appearance-none form-control form-input w-search pl-search"
-                    placeholder="Search"
-                    type="search"
-                    v-model="search">
-            </div>               
-        </div>
+        <SearchInput
+            v-model="search" />
 
         <LoadingCard 
             :loading="loading"
             class="overflow-hidden border border-50">
-            <ListTable
-                :members="members"
+            <SubscribersTable
+                :subscribers="subscribers"
                 :search="search" />
         </LoadingCard>
     </div>
 </template>
 
 <script>
-import ListTable from './ListTable'
+import SubscribersTable from '../Subscribers/SubscribersTable'
 import moment from 'moment'
+import PageMixin from '../../mixins/page'
 
 export default {
 
     props: {
-        listId: {
+        id: {
             type: String,
             required: true
         }
     },
 
     components: {
-        ListTable
+        SubscribersTable
     },
+
+    mixins: [ PageMixin ],
 
     data () {
         return {
-            loading: true,
             list: [],
-            members: [],
-            search: '',
-            tool: null
+            subscribers: []
         }
     },
     
     created () {
-        this.$emit('updateTitle', 'Lists')
 
-        Nova.request().get(`/nova-vendor/nova-email-marketing-tool/lists/${this.listId}`)
+        Nova.request().get(`/nova-vendor/nova-email-marketing-tool/lists/${this.id}`)
             .then(({ data: result }) => {
                 this.list = result.data
-                this.$emit('updateTitle', `List ${this.list.name}`)
+                this.$emit('updateTitle', `${this.tool.pages.list} ${this.list.name}`)
             })
 
-        Nova.request().get(`/nova-vendor/nova-email-marketing-tool/list-members/${this.listId}`)
+        Nova.request().get(`/nova-vendor/nova-email-marketing-tool/list-subscribers/${this.id}`)
             .then(({ data: result }) => {
-                let members = result.data
-                members.forEach(member => {
+                let subscribers = result.data
+                subscribers.forEach(member => {
                     member.subscribed_at = moment(member.subscribed_at).format('MM/DD/YYYY')
                 })
-                this.members = members
+                this.subscribers = subscribers
                 this.loading = false
             })
     },

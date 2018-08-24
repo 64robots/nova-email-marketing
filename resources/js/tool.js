@@ -7,8 +7,14 @@ Nova.booting((Vue, router) => {
             children: [
                 {
                     name: 'nova-email-marketing-tool-lists',
-                    path: '/',
+                    path: 'lists',
                     component: require('./components/Lists/ListsPage')
+                },
+                {
+                    name: 'nova-email-marketing-tool-list',
+                    path: 'list/:id',
+                    component: require('./components/List/ListPage'),
+                    props: true
                 },
                 {
                     name: 'nova-email-marketing-tool-tags',
@@ -16,11 +22,11 @@ Nova.booting((Vue, router) => {
                     component: require('./components/Tags/TagsPage')
                 },
                 {
-                    name: 'nova-email-marketing-tool-list',
-                    path: 'list/:listId',
-                    component: require('./components/List/ListPage'),
-                    props: true
-                }
+                    name: 'nova-email-marketing-tool-subscribers',
+                    path: 'subscribers',
+                    component: require('./components/Subscribers/SubscribersPage')
+                },
+                
             ]
         }
     ])
