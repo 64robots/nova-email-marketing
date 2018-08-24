@@ -2,6 +2,12 @@
     "name": "r64/nova-email-marketing-tool",
     "description": "A Laravel Nova tool to manage your email marketing lists",
     "keywords": [
+        "laravel",
+        "nova",
+        "mailchimp",
+        "activecampaign",
+        "getresponse",
+        "email marketing"
     ],
     "license": "MIT",
     "repositories": [
