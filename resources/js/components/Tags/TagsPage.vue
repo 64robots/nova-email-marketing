@@ -17,31 +17,31 @@
 import TagsTable from './TagsTable'
 
 export default {
+  components: {
+    TagsTable,
+  },
 
-    components: {
-        TagsTable
-    },
+  data() {
+    return {
+      loading: true,
+      tags: [],
+      search: '',
+    }
+  },
 
-    data () {
-        return {
-            loading: true,
-            tags: [],
-            search: ''
-        }
-    },
-    
-    created () {
-        this.$emit('updateTitle', 'Tags')
+  created() {
+    this.$emit('updateTitle', 'Tags')
 
-        Nova.request().get('/nova-vendor/nova-email-marketing-tool/tags')
-            .then(({ data: result }) => {
-                this.tags = result.data
-                this.loading = false
-            })
-    },
+    Nova.request()
+      .get('/nova-vendor/nova-email-marketing-tool/tags')
+      .then(({ data: result }) => {
+        this.tags = result.data
+        this.loading = false
+      })
+  },
 }
 </script>
 
 <style>
-    /* Scoped Styles */
+/* Scoped Styles */
 </style>

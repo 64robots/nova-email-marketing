@@ -19,48 +19,48 @@ import moment from 'moment'
 import PageMixin from '../../mixins/page'
 
 export default {
-
-    props: {
-        id: {
-            type: String,
-            required: true
-        }
+  props: {
+    id: {
+      type: String,
+      required: true,
     },
+  },
 
-    components: {
-        SubscribersTable
-    },
+  components: {
+    SubscribersTable,
+  },
 
-    mixins: [ PageMixin ],
+  mixins: [PageMixin],
 
-    data () {
-        return {
-            list: [],
-            subscribers: []
-        }
-    },
-    
-    created () {
+  data() {
+    return {
+      list: [],
+      subscribers: [],
+    }
+  },
 
-        Nova.request().get(`/nova-vendor/nova-email-marketing-tool/lists/${this.id}`)
-            .then(({ data: result }) => {
-                this.list = result.data
-                this.$emit('updateTitle', `${this.tool.pages.list} ${this.list.name}`)
-            })
+  created() {
+    Nova.request()
+      .get(`/nova-vendor/nova-email-marketing-tool/lists/${this.id}`)
+      .then(({ data: result }) => {
+        this.list = result.data
+        this.$emit('updateTitle', `${this.tool.pages.list} ${this.list.name}`)
+      })
 
-        Nova.request().get(`/nova-vendor/nova-email-marketing-tool/list-subscribers/${this.id}`)
-            .then(({ data: result }) => {
-                let subscribers = result.data
-                subscribers.forEach(member => {
-                    member.subscribed_at = moment(member.subscribed_at).format('MM/DD/YYYY')
-                })
-                this.subscribers = subscribers
-                this.loading = false
-            })
-    },
+    Nova.request()
+      .get(`/nova-vendor/nova-email-marketing-tool/list-subscribers/${this.id}`)
+      .then(({ data: result }) => {
+        let subscribers = result.data
+        subscribers.forEach(member => {
+          member.subscribed_at = moment(member.subscribed_at).format('MM/DD/YYYY')
+        })
+        this.subscribers = subscribers
+        this.loading = false
+      })
+  },
 }
 </script>
 
 <style>
-    /* Scoped Styles */
+/* Scoped Styles */
 </style>

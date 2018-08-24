@@ -19,32 +19,32 @@ import PageMixin from '../../mixins/page'
 import SearchInput from '../shared/SearchInput'
 
 export default {
+  components: {
+    ListsTable,
+    SearchInput,
+  },
 
-    components: {
-        ListsTable,
-        SearchInput
-    },
+  mixins: [PageMixin],
 
-    mixins: [ PageMixin ],
-
-    data () {
-        return {
-            lists: [],
-        }
-    },
-
-    created () {
-        this.$emit('updateTitle', this.tool.pages.lists)
-
-        Nova.request().get('/nova-vendor/nova-email-marketing-tool/lists')
-            .then(({ data: result }) => {
-                this.lists = result.data
-                this.loading = false
-            })
+  data() {
+    return {
+      lists: [],
     }
+  },
+
+  created() {
+    this.$emit('updateTitle', this.tool.pages.lists)
+
+    Nova.request()
+      .get('/nova-vendor/nova-email-marketing-tool/lists')
+      .then(({ data: result }) => {
+        this.lists = result.data
+        this.loading = false
+      })
+  },
 }
 </script>
 
 <style>
-    /* Scoped Styles */
+/* Scoped Styles */
 </style>

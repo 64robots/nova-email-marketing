@@ -10,46 +10,45 @@
 import SortTable from '../Shared/SortTable'
 
 export default {
-    props: {
-        tags: {
-            type: Array,
-            required: true
-        },
-
-        search: {
-            type: String,
-            default: ''
-        }
+  props: {
+    tags: {
+      type: Array,
+      required: true,
     },
 
-    components: {
-        SortTable
+    search: {
+      type: String,
+      default: '',
     },
+  },
 
-    data: () => ({
-        fields: [
-            {
-                indexName: 'ID',
-                textAlign: 'left',
-                attribute: 'id',
-                sortable: true
-            },
-            {
-                indexName: 'Name',
-                textAlign: 'left',
-                attribute: 'name',
-                sortable: true
-            }
-        ]
-    }),
+  components: {
+    SortTable,
+  },
 
-    methods: {
-        filter (tag) {
-            return this.search === '' ||
-                tag.name.includes(this.search) ||
-                String(tag.id).includes(this.search)
+  data: () => ({
+    fields: [
+      {
+        indexName: 'ID',
+        textAlign: 'left',
+        attribute: 'id',
+        sortable: true,
+      },
+      {
+        indexName: 'Name',
+        textAlign: 'left',
+        attribute: 'name',
+        sortable: true,
+      },
+    ],
+  }),
 
-        }
-    }
+  methods: {
+    filter(tag) {
+      return (
+        this.search === '' || tag.name.includes(this.search) || String(tag.id).includes(this.search)
+      )
+    },
+  },
 }
 </script>

@@ -47,59 +47,58 @@
 import TableMixin from '../../mixins/table'
 
 export default {
-    mixins: [ TableMixin ],
+  mixins: [TableMixin],
 
-    props: {
-        fields: {
-            type: Array,
-            required: true
-        },
-
-        tableData: {
-            type: Array,
-            required: true
-        },
-
-        viewRoute: {
-            type: String,
-            default: null
-        },
-
-        filter: {
-            type: Function,
-            default: () => { return true }
-        }
+  props: {
+    fields: {
+      type: Array,
+      required: true,
     },
 
-    computed: {
-        sortedData () {
-            return this.tableData.filter(this.filter)
-                .sort((a, b) => {
-                    const firstValue = a[this.sortField]
-                    const secondValue = b[this.sortField]
-                    
-                    let comparison = 0;
-                    if (firstValue > secondValue) {
-                        comparison = 1;
-                    } else if (firstValue < secondValue) {
-                        comparison = -1;
-                    }
-                    return (
-                        this.sortDirection ? (comparison * -1) : comparison
-                    )
-                })
-        }
+    tableData: {
+      type: Array,
+      required: true,
     },
 
-    methods: {
-        view (item) {
-            this.$router.push({
-                name: this.viewRoute,
-                params: {
-                    id: item.id
-                }
-            })
+    viewRoute: {
+      type: String,
+      default: null,
+    },
+
+    filter: {
+      type: Function,
+      default: () => {
+        return true
+      },
+    },
+  },
+
+  computed: {
+    sortedData() {
+      return this.tableData.filter(this.filter).sort((a, b) => {
+        const firstValue = a[this.sortField]
+        const secondValue = b[this.sortField]
+
+        let comparison = 0
+        if (firstValue > secondValue) {
+          comparison = 1
+        } else if (firstValue < secondValue) {
+          comparison = -1
         }
-    }
+        return this.sortDirection ? comparison * -1 : comparison
+      })
+    },
+  },
+
+  methods: {
+    view(item) {
+      this.$router.push({
+        name: this.viewRoute,
+        params: {
+          id: item.id,
+        },
+      })
+    },
+  },
 }
 </script>

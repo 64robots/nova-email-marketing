@@ -19,7 +19,7 @@
     "require": {
         "php": ">=7.1.0",
         "drewm/mailchimp-api": "^2.5",
-        "r64/laravel-email-marketing": "dev-master"
+        "r64/laravel-email-marketing": "*"
     },
     "autoload": {
         "psr-4": {

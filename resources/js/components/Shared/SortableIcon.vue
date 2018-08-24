@@ -34,59 +34,59 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            field: {
-                type: String,
-                required: true
-            },
+export default {
+  props: {
+    field: {
+      type: String,
+      required: true,
+    },
 
-            sortField: {
-                type: String,
-                required: true
-            },
+    sortField: {
+      type: String,
+      required: true,
+    },
 
-            sortDirection: {
-                type: Boolean,
-                required: true
-            }
-        },
+    sortDirection: {
+      type: Boolean,
+      required: true,
+    },
+  },
 
-        methods: {
-            handleClick() {
-                this.$emit('sort')
-            }
-        },
+  methods: {
+    handleClick() {
+      this.$emit('sort')
+    },
+  },
 
-        computed: {
-            /**
-             * The CSS class to apply to the ascending arrow icon
-             */
-            ascClass() {
-                if (this.isSorted && !this.sortDirection) {
-                    return 'fill-80'
-                }
+  computed: {
+    /**
+     * The CSS class to apply to the ascending arrow icon
+     */
+    ascClass() {
+      if (this.isSorted && !this.sortDirection) {
+        return 'fill-80'
+      }
 
-                return 'fill-60'
-            },
+      return 'fill-60'
+    },
 
-            /**
-             * The CSS class to apply to the descending arrow icon
-             */
-            descClass() {
-                if (this.isSorted && this.sortDirection) {
-                    return 'fill-80'
-                }
+    /**
+     * The CSS class to apply to the descending arrow icon
+     */
+    descClass() {
+      if (this.isSorted && this.sortDirection) {
+        return 'fill-80'
+      }
 
-                return 'fill-60'
-            },
+      return 'fill-60'
+    },
 
-            /**
-             * Determine whether this column is being sorted
-             */
-            isSorted() {
-                return this.sortField == this.field
-            }
-        },
-    }
+    /**
+     * Determine whether this column is being sorted
+     */
+    isSorted() {
+      return this.sortField == this.field
+    },
+  },
+}
 </script>
