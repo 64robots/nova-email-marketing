@@ -3,8 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use R64\LaravelEmailMarketing\MarketingTools\MarketingToolManager;
-use R64\NovaEmailMarketingTool\NovaToolData\NovaToolData;
 /*
 |--------------------------------------------------------------------------
 | Tool API Routes
@@ -16,31 +14,22 @@ use R64\NovaEmailMarketingTool\NovaToolData\NovaToolData;
 |
 */
 
-Route::get('/tool', function (Request $request) {
-    return NovaToolData::toolData();
-});
+Route::get('/tool', R64\NovaEmailMarketingTool\Http\Controllers\ToolController::class . '@index')
+    ->name('tool.list');
 
-Route::get('/lists', function (Request $request) {
-    $marketingToolManager = new MarketingToolManager;
-    return $marketingToolManager->getLists();
-});
+Route::get('/lists', R64\NovaEmailMarketingTool\Http\Controllers\ListsController::class . '@index')
+    ->name('lists.list');
 
-Route::get('/lists/{listId}', function (Request $request, $listId) {
-    $marketingToolManager = new MarketingToolManager;
-    return $marketingToolManager->getList($listId);
-});
+Route::get('/lists/{listId}', R64\NovaEmailMarketingTool\Http\Controllers\ListsController::class . '@show')
+    ->name('lists.get');
 
-Route::get('/list-subscribers/{listId}', function (Request $request, $listId) {
-    $marketingToolManager = new MarketingToolManager;
-    return $marketingToolManager->getListSubscribers($listId);
-});
+Route::get('/list-subscribers/{listId}', R64\NovaEmailMarketingTool\Http\Controllers\ListSubscribersController::class . '@show')
+    ->name('list-subscribers.get');
 
-Route::get('/subscribers', function (Request $request) {
-    $marketingToolManager = new MarketingToolManager;
-    return $marketingToolManager->getSubscribers();
-});
+Route::get('/subscribers', R64\NovaEmailMarketingTool\Http\Controllers\SubscribersController::class . '@index')
+    ->name('subscribers.list');
 
-Route::get('/subscribers/{subscriberId}', function (Request $request, $subscriberId) {
-});
+Route::get('/subscribers/{subscriberId}', R64\NovaEmailMarketingTool\Http\Controllers\SubscribersController::class . '@show')
+    ->name('subscribers.get');
 
 

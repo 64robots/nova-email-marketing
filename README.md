@@ -60,7 +60,7 @@ GETRESPONSE_API_KEY=
 
 MailChimp
 ```
-MAILCHIMP_API_KEY=f27ed0884193588485fd8b1bccad90a4-us19
+MAILCHIMP_API_KEY=
 ```
 
 In your NovaServiceProvider.php add:

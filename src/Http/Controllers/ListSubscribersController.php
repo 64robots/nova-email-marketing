@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use R64\LaravelEmailMarketing\MarketingTools\MarketingToolManager;
 
-class ListsController extends Controller
+class ListSubscribersController extends Controller
 {
     public $marketingToolManager;
 
@@ -15,13 +15,8 @@ class ListsController extends Controller
         $this->marketingToolManager = $manager;    
     }
 
-    public function index()
-    {
-        return $this->marketingToolManager->getLists();
-    }
-
     public function show($listId)
     {
-        return $this->marketingToolManager->getList($listId);
+        return $this->marketingToolManager->getListSubscribers($listId);
     }
 }
